@@ -33,33 +33,33 @@ import setuptools
 if __name__ == "__main__":
     setuptools.setup(
         name="flask-autorouter",
-        version="0.1.0",
+        version="0.1.1",
         url="https://github.com/d1hotpep/flask_autorouter",
         license="MIT",
         author="Daniel Pepper",
-        # author_email="",
+        author_email="pepper.daniel@gmail.com",
         description="a utility for generating flask URL routing",
+        long_description=open('README.txt').read(),
         platforms="any",
 
         packages=[
-            "flask-autorouter",
+            "flask_autorouter",
         ],
-
-        entry_points={
-            "console_scripts": [
-            ],
-        },
 
         install_requires=[
             "flask",
             "bson",
         ],
 
+        # https://pypi.python.org/pypi?%3Aaction=list_classifiers
         classifiers=[
             "License :: OSI Approved :: MIT License",
-            "Development Status :: Alpha",
-            "Topic :: Software Development :: Libraries :: Python Modules",
+            "Development Status :: 2 - Pre-Alpha",
+            "Programming Language :: Python",
             "Topic :: Utilities",
+            "Topic :: Software Development :: Libraries :: Python Modules",
+            "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
             "Operating System :: OS Independent",
+            "Natural Language :: English",
         ],
     )
