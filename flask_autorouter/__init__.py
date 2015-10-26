@@ -11,7 +11,7 @@ from bson import json_util
 import flask
 
 
-def generate_urls(app, src_dir, base_url='/', default_methods=['GET'], auth_fn=None):
+def generate_urls(app, src_dir, base_url='/', auth_fn=None):
     assert type(app) == flask.Flask
     assert base_url.startswith('/')
     base_url = base_url.rstrip('/')
@@ -59,7 +59,6 @@ def generate_urls(app, src_dir, base_url='/', default_methods=['GET'], auth_fn=N
             mod_path = os.path.abspath(os.path.join(path, filename))
             module = imp.load_source(mod_name, mod_path)
 
-            defaults = getattr(module, 'DEFAULTS', {})
             public_view = getattr(module, 'PUBLIC', False)
 
             http_fns = {}
@@ -92,14 +91,10 @@ def generate_urls(app, src_dir, base_url='/', default_methods=['GET'], auth_fn=N
 
             view_fn = generate_view_fn(http_fns)
 
-            # add authentication check
+            # add authentication layer
             if not public_view and auth_fn:
                 view_fn = auth_fn(view_fn)
 
-            # determine which methods to use for this endpoint
-            methods = set(getattr(module, 'METHODS', [ k for k, v in http_fns.items() if v ]))
-
-            methods = methods or default_methods
 
             if hasattr(module, 'PATH'):
                 url_paths = [getattr(module, 'PATH')]
@@ -115,13 +110,13 @@ def generate_urls(app, src_dir, base_url='/', default_methods=['GET'], auth_fn=N
                 url = url.replace('//', '/')
                 url_paths = [url]
 
+
             for url in url_paths:
                 app.add_url_rule(
                     url,
                     view_func=view_fn,
                     endpoint=mod_name,
-                    methods=methods,
-                    defaults=defaults
+                    methods=http_fns.keys(),
                 )
                 paths[url] = mod_name
 
