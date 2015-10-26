@@ -85,8 +85,14 @@ def generate_urls(app, src_dir, base_url='/', default_methods=['GET'], auth_fn=N
             if http_fns.get('VIEW') and (http_fns.get('GET') or http_fns.get('POST')):
                 raise Exception('invalid endpoints, use either view() or get()/post() but not both: ' + mod_path)
 
+            # remap VIEW fn to GET / POST
+            if http_fns.get('VIEW'):
+                http_fns['GET'] = http_fns['POST'] = http_fns['VIEW']
+                del http_fns['VIEW']
+
             view_fn = generate_view_fn(http_fns)
 
+            # add authentication check
             if not public_view and auth_fn:
                 view_fn = auth_fn(view_fn)
 
