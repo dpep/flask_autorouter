@@ -36,6 +36,7 @@ sed -i '' "s/__version__ = '.*'/__version__ = '$VERSION'/" setup.py
 sed -i '' "s/__version__ = '.*'/__version__ = '$VERSION'/" flask_autorouter/__init__.py
 
 git commit -am "bump version and update changelog"
+git push
 git tag v$VERSION
 git push --tags
 
