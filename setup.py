@@ -49,7 +49,6 @@ if __name__ == "__main__":
 
         install_requires=[
             "flask",
-            "bson",
         ],
 
         # https://pypi.python.org/pypi?%3Aaction=list_classifiers

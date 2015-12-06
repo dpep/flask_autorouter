@@ -1,7 +1,5 @@
 def get():
-    return {
-        'data' : 123,
-    }
+    return 123
 
 
 def post():

@@ -2,7 +2,7 @@
 
 import sys
 import os
-sys.path.append('../..')
+sys.path = ['../..'] + sys.path
 
 from flask import Flask
 import flask_autorouter

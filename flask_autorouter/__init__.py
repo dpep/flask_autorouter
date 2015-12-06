@@ -7,7 +7,7 @@ import imp
 import json
 import urllib
 
-from bson import json_util
+# from bson import json_util
 import flask
 
 
@@ -33,10 +33,11 @@ def generate_urls(app, src_dir, base_url='/', auth_fn=None):
 
                 if None == res:
                     res = ('', 204)  # Empty Response Code
-                elif type(res) in [list, dict]:
+                elif type(res) in [list, dict, int, float]:
                     # auto-package results into json
                     res = flask.Response(
-                        json.dumps(res, default=json_util.default),
+                        # json.dumps(res, default=json_util.default),
+                        json.dumps(res),
                         mimetype='application/json',
                     )
             else:
