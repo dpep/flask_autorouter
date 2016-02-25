@@ -12,7 +12,7 @@ import flask
 
 
 def generate_urls(app, src_dir, base_url='/', auth_fn=None):
-    assert type(app) == flask.Flask
+    assert isinstance(app, flask.Flask)
     assert base_url.startswith('/')
     base_url = base_url.rstrip('/')
 
